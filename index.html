@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calcolatore Ingredienti Pizza</title>
+    <title>Calcolatore Ingredienti</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,8 +34,17 @@
 </head>
 <body>
     <div class="container">
-        <h1>Ingredienti Pizza</h1>
-        <input type="number" id="water" placeholder="Inserisci litri di acqua">
+        <h1>Calcolatore Ingredienti Pizza</h1>
+        <label for="water">Litri di acqua:</label>
+        <input type="number" id="water" placeholder="Inserisci litri di acqua" onchange="calculateIngredients()">
+        <label for="flour">Farina (kg):</label>
+        <input type="number" id="flour" placeholder="Inserisci la quantità di farina" onchange="calculateIngredients()">
+        <label for="salt">Sale (g):</label>
+        <input type="number" id="salt" placeholder="Inserisci la quantità di sale" onchange="calculateIngredients()">
+        <label for="yeast">Lievito (g):</label>
+        <input type="number" id="yeast" placeholder="Inserisci la quantità di lievito" onchange="calculateIngredients()">
+        <label for="oil">Olio (g):</label>
+        <input type="number" id="oil" placeholder="Inserisci la quantità di olio" onchange="calculateIngredients()">
         <button onclick="calculateIngredients()">Calcola Ingredienti</button>
         <div id="results" class="result"></div>
     </div>
@@ -43,23 +52,28 @@
     <script>
         function calculateIngredients() {
             const waterLiters = parseFloat(document.getElementById('water').value);
-            if (isNaN(waterLiters) || waterLiters <= 0) {
-                alert('Per favore, inserisci un valore valido per i litri di acqua.');
+            const flour = parseFloat(document.getElementById('flour').value);
+            const salt = parseFloat(document.getElementById('salt').value);
+            const yeast = parseFloat(document.getElementById('yeast').value);
+            const oil = parseFloat(document.getElementById('oil').value);
+
+            if (isNaN(waterLiters) || isNaN(flour) || isNaN(salt) || isNaN(yeast) || isNaN(oil) ||
+                waterLiters <= 0 || flour <= 0 || salt <= 0 || yeast <= 0 || oil <= 0) {
+                alert('Per favore, inserisci valori validi per gli ingredienti.');
                 return;
             }
 
-            const flour = waterLiters * 1.6;
-            const salt = waterLiters * 50;
-            const yeast = waterLiters * 3;
-            const oil = waterLiters * 10;
+            const calculatedFlour = waterLiters * 1.6 || 0;
+            const calculatedSalt = waterLiters * 50 || 0;
+            const calculatedYeast = waterLiters * 3 || 0;
+            const calculatedOil = waterLiters * 10 || 0;
 
-            const results = `
-                <p>Farina: ${flour.toFixed(2)} kg</p>
-                <p>Sale: ${salt.toFixed(2)} g</p>
-                <p>Lievito: ${yeast.toFixed(2)} g</p>
-                <p>Olio: ${oil.toFixed(2)} g</p>
+            document.getElementById('results').innerHTML = `
+                <p>Farina: ${calculatedFlour.toFixed(2)} kg</p>
+                <p>Sale: ${calculatedSalt.toFixed(2)} g</p>
+                <p>Lievito: ${calculatedYeast.toFixed(2)} g</p>
+                <p>Olio: ${calculatedOil.toFixed(2)} g</p>
             `;
-            document.getElementById('results').innerHTML = results;
         }
     </script>
 </body>
