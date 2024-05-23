@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore Ingredienti Pizza</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ingredienti Pizza</h1>
+        <input type="number" id="water" placeholder="Inserisci litri di acqua">
+        <button onclick="calculateIngredients()">Calcola Ingredienti</button>
+        <div id="results" class="result"></div>
+    </div>
+
+    <script>
+        function calculateIngredients() {
+            const waterLiters = parseFloat(document.getElementById('water').value);
+            if (isNaN(waterLiters) || waterLiters <= 0) {
+                alert('Per favore, inserisci un valore valido per i litri di acqua.');
+                return;
+            }
+
+            const flour = waterLiters * 1.6;
+            const salt = waterLiters * 50;
+            const yeast = waterLiters * 3;
+            const oil = waterLiters * 10;
+
+            const results = `
+                <p>Farina: ${flour.toFixed(2)} kg</p>
+                <p>Sale: ${salt.toFixed(2)} g</p>
+                <p>Lievito: ${yeast.toFixed(2)} g</p>
+                <p>Olio: ${oil.toFixed(2)} g</p>
+            `;
+            document.getElementById('results').innerHTML = results;
+        }
+    </script>
+</body>
+</html>
